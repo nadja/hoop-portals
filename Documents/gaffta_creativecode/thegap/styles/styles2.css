@@ -1,0 +1,159 @@
+body {
+    background-color: black;
+    color: white;
+    margin-left: 50px;
+    margin-top: 50px;
+    font-family: 'eighties', sans-serif;
+    font-style: italic;
+    margin: 0;
+    font-size: 40px;
+
+}
+
+@font-face {
+    font-family: 'eighties';
+    src: url('80erfinaldemo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'bubble';
+    src: url('Bobbleboddy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+p {
+    margin: 0;
+}
+
+.cover {
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    margin: 200px auto 0px auto;
+}
+
+.verse {
+    width: 100%;
+    padding: 200px 100px 200px 100px;
+    color: #FFF;
+    box-sizing: border-box;
+    padding-left: 5%;
+    padding-right: 40%;
+}
+
+.even {
+    text-align: right;
+    padding-left: 50%;
+    padding-right: 5%;
+}
+
+.one {
+    background-image: url('pattern1.jpg');
+    font-color: #D8C421;
+}
+
+.spanone 
+{
+    background-color: #FF7247;
+
+}
+
+.classone {
+    background-image: url('pattern1.jpg');
+    font-size: 55;
+    font-family:bubble;
+
+}
+
+.classtwo {
+    background-image: url('pattern2.jpg');
+    font-size: 55;
+    font-family:bubble;
+
+}
+
+.classthree {
+    background-image: url('pattern3.jpg');
+    font-size: 55;
+    font-family:bubble;
+    color:#FF0F97;
+
+}
+
+
+.class4 {
+    background-image: url('pattern4.jpg');
+    font-size: 55;
+    font-family:bubble;
+
+}
+
+.class5 {
+    background-image: url('pattern5.jpg');
+    font-size: 55;
+    font-family:bubble;
+
+}
+.two {
+    background-color: #D8C421;
+}
+
+.three {
+    background-color: #66D832;
+}
+
+.four {
+    background-color: #28BE83;
+}
+
+.five {
+    background-color: #FB48A0;
+}
+
+.six {
+    background-color: #FC0373;
+}
+
+.ten {
+        font-family: 'bubble';
+
+}
+
+h1 {
+    color: #FF00FF;
+    font-family: Lato, sans-;
+    font-style: none;
+}
+
+.hidden {
+    display: none;
+}
+
+li {
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    text-align: center;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+}
+
+.selected {
+    animation: fadeBlack 1s linear;
+}
+
+@keyframes fadeBlack {
+    0% {
+        background-color: #777
+    }
+    100% {
+        background-color: #000
+    }
+    ;
+}
