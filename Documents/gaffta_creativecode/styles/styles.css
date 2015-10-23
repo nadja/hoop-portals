@@ -1,0 +1,117 @@
+body {
+    background-color: black;
+    color: white;
+    margin-left: 50px;
+    margin-top: 50px;
+    font-family: IM+Fell+French+Canon, sans-serif;
+    font-style: italic;
+    margin: 0;
+        font-size: 40px;
+
+}
+
+p {
+    margin: 0;
+}
+
+.cover {
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    margin: 200px auto 0px auto;
+}
+
+.verse {
+    width: 100%;
+    padding: 200px 100px 200px 100px;
+    color: #FFF;
+    box-sizing: border-box;
+    padding-left: 5%;
+    padding-right: 50%;
+}
+
+.even {
+    text-align: right;
+    padding-left: 50%;
+    padding-right: 5%;
+}
+
+.one {
+    background-color: #FC0373;
+}
+
+.two {
+    background-color: #F75C5F;
+}
+
+.three {
+    background-color: #FFA17E;
+}
+
+.four {
+    background-color: #F8CA98;
+}
+
+.five {
+    background-color: #FFC7D4;
+}
+
+.six {
+    background-color: #FC0373;
+}
+
+h1 {
+    color: #FF00FF;
+    font-family: Lato, sans-;
+    font-style: none;
+}
+
+.hidden {
+    display: none;
+}
+
+li {
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    text-align: center;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+}
+
+.selected {
+    animation: fadeBlack 1s linear;
+}
+
+@keyframes fadeBlack {
+    0% {
+        background-color: #777
+    }
+    100% {
+        background-color: #000
+    }
+    ;
+}
+
+.mydiv {
+    width: 400px;
+}
+
+absolute {
+    position: absolute;
+    top: 85%;
+    right: 10%;
+    background-color: #00FF00;
+}
+
+blue {
+    color: #440000;
+    background-color: #0000FF;
+}
+
+red {
+    background-color: #FF0000;
+    border-width: 2px;
+    border-color: red;
+}
