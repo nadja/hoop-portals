@@ -28,7 +28,9 @@
 
 #include "ofMain.h"
 #include "ofxPS3EyeGrabber.h"
-
+#include "ofxCv.h"
+#include "ofxGui.h"
+#include "ofxOpenCv.h"
 
 class ofApp: public ofBaseApp
 {
@@ -43,5 +45,19 @@ public:
     int camWidth;
     int camHeight;
     int camFrameRate;
+    
+    int outputWidth;
+    int outputHeight;
+    
+    ofPixels previous;
+    ofImage diff;
+    ofxCvGrayscaleImage thresholdedIm;
+    
+    ofxPanel gui;
+    ofParameter<int> thresh;
+    
+
+
+    
     
 };

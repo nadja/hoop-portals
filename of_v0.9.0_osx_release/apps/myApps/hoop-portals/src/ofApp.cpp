@@ -25,6 +25,8 @@
 
 #include "ofApp.h"
 
+using namespace ofxCv;
+using namespace cv;
 
 void ofApp::setup()
 {
@@ -55,28 +57,49 @@ void ofApp::setup()
 	vidGrabber.setDesiredFrameRate(camFrameRate);
 	vidGrabber.setup(camWidth, camHeight);
     
-    vidGrabber.setAutogain(false);
+    vidGrabber.setAutogain(true);
     vidGrabber.setAutoWhiteBalance(false);
+    
+    
+    // setup GUI (panel with controls)
+    gui.setup();
+    gui.add(thresh.set("thresh", 150, 0, 255));
+
+
     
 }
 
 
-void ofApp::update()
+void ofApp::update() // processing called every frame before draw step
 {
 	vidGrabber.update();
     
 	if (vidGrabber.isFrameNew())
     {
+//        diff.update();
+//        threshold(diff,0);
 		videoTexture.loadData(vidGrabber.getPixels());
+        thresholdedIm = vidGrabber.getPixels();
+        // thresholdedIm.setImageType(OF_IMAGE_GRAYSCALE);
+
+        thresholdedIm.threshold(thresh); // automatically sets the input to the thresholded imput
+        // thresholdedIm.update();
+        
 	}
 }
 
+
 void ofApp::draw()
 {
+    
     ofBackground(0);
     ofSetColor(255);
     
-    videoTexture.draw(0, 0);
+    gui.draw();
+
+    
+    videoTexture.draw(0, 400); // draw @ 0,0
+    thresholdedIm.draw(camWidth,0);
     
     std::stringstream ss;
     
