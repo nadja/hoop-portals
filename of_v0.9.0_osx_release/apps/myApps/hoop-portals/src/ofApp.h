@@ -31,6 +31,7 @@
 #include "ofxCv.h"
 #include "ofxGui.h"
 #include "ofxOpenCv.h"
+#include <iostream>
 
 class ofApp: public ofBaseApp
 {
@@ -38,23 +39,42 @@ public:
     void setup();
     void update();
     void draw();
+    ofxCvColorImage dealWithContours(ofxCv::ContourFinder contourFinder);
+    void keyPressed(int key);
     
-    ofxPS3EyeGrabber vidGrabber;
+    ofxPS3EyeGrabber vidGrabber; // the IR camera
     ofTexture videoTexture;
     
     int camWidth;
     int camHeight;
     int camFrameRate;
     
-    int outputWidth;
-    int outputHeight;
+    int outputWidth=900;
+    int outputHeight=600;
     
-    ofPixels previous;
-    ofImage diff;
+    ofPixels pixelFrame;
+    ofImage plainImage;
+    ofxCvColorImage displayImage;
     ofxCvGrayscaleImage thresholdedIm;
     
     ofxPanel gui;
-    ofParameter<int> thresh;
+    ofParameter<int> thresh, exposure, channel, minRadius;
+    
+    bool doBackgroundSub = false;
+    ofxCv::RunningBackground background;
+    
+    // contours?
+    ofxCv::ContourFinder contourFinder;
+    ofColor targetColor;
+    
+    // flow?
+    ofxCv::Flow* curFlow;
+    ofxCv::FlowFarneback fb; // flwtype
+    
+    cv::RotatedRect testRect;
+ //
+
+
     
 
 
