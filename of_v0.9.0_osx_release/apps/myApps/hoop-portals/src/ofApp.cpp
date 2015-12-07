@@ -69,20 +69,36 @@ void ofApp::setup()
 	background.setLearningTime(900);
 	background.setThresholdValue(10);
     // background.setDifferenceMode(??); // ABSDIFF
-    
     }
 
     // setup GUI (panel with controls)
-    gui.setup();
+    // CAMERA
+    gui.setup("camera settings");
     gui.setPosition(camWidth*2+10,10);
     gui.add(thresh.set("thresh", 150, 0, 500)); // set camera thresh
-    gui.add(exposure.set("exposure", 0, 10, 255)); // expsoreu
-    gui.add(channel.set("channel", 2, 1, 4)); // which channel to grab from
+    gui.add(exposure.set("exposure", 24, 0, 255)); // expsoreu
+    gui.add(channel.set("channel (RGBA)", 1, 1, 4)); // which channel to grab from
     gui.add(minRadius.set("minRadius", 50, 1, 500)); // which channel to grab from
-    
+    // HOUGH SETTINGS
+    //setup gui
+    gui2.setup("hough settings"); //
+    gui2.setPosition(camWidth*2+10, 100);
+    gui2.add(dp_param.setup("dp param", 1, 0, 10));
+    gui2.add(mindist_param.setup("min dist param", 200, 1, 1000));
+    gui2.add(param1_param.setup("param1 param", 130, 1, 500));
+    gui2.add(param2_param.setup("param2 param", 30, 1, 100));
+    gui2.add(minradius_param.setup("min. radius param", 0, 0, 500));
+    gui2.add(maxradius_param.setup("max. radius param", 400, 0, 500));
+    gui2.add(threshold_param.setup("threshold", 120, 0, 255));
+    gui2.add(blurparam.set("blurparam", 6, 1, 25));
+
+    gui2.add(numCircles.setup("# of circles size", ofToString((int)circles.size())));
+
     contourFinder.setTargetColor(ofColor(255,255,255));
 
-    vidGrabber.videoSettings();
+    // allocation for
+    ofxCv::allocate(cvMat, camWidth, camHeight, OF_IMAGE_GRAYSCALE);
+
 
 } // setup
 
@@ -113,12 +129,8 @@ void ofApp::update() // processing called every frame before draw step
         }
         else {
             thresholdedIm.setFromPixels(pixelFrame.getChannel(channel)); // converts to grayscale
-
             thresholdedIm.threshold(thresh); // automatically sets the input to the thresholded imput
-            
         }
-        //ofxCv::blur(plainImage, 2);
-        //plainImage.update();
 
         contourFinder.findContours(thresholdedIm);
         
@@ -126,7 +138,18 @@ void ofApp::update() // processing called every frame before draw step
         
         //thresholdedIm.resize(outputWidth, outputHeight);
         // thresholdedIm.update();
-        //     
+        cvMat = ofxCv::toCv(thresholdedIm); // hough transform preprocessing
+        //cv::GaussianBlur( cvMat, cvMat, cv::Size(5, 5), 2, 2 );
+        cv::HoughCircles( cvMat,
+                         circles,
+                         CV_HOUGH_GRADIENT,
+                         dp_param,
+                         mindist_param,
+                         param1_param,
+                         param2_param,
+                         minradius_param,
+                         maxradius_param);
+        std::cout << "num circles " << circles.size() << endl;
         
         //deal with color image... as a mask?
         
@@ -153,12 +176,21 @@ void ofApp::draw()
     ofSetColor(255);
     
     gui.draw();
+    gui2.draw();
     
     videoTexture.draw(0,camHeight); // draw @ 0,0
     thresholdedIm.draw(camWidth,0);
     plainImage.draw(camWidth,camHeight);
     contourFinder.draw();
     
+    // hough stuff
+    ofSetColor(0, 255, 0);
+    ofNoFill();
+
+
+    for (int i=0; i<circles.size(); i++) {
+        ofDrawCircle(circles[i][0], circles[i][1], circles[i][2]);
+    }
     
     // for each blob found
     for (int i =0; i<contourFinder.size(); i++) {
@@ -197,7 +229,8 @@ void ofApp::draw()
     ss << "App FPS: " << ofGetFrameRate() << std::endl;
     ss << "Cam FPS: " << vidGrabber.getFPS() << std::endl;
     ss << "Pixel Format: " << vidGrabber.getPixelFormat() << std::endl;
-    ss << "Expsoure Format: " << to_string(vidGrabber.getExposure()) << std::endl;
+    ss << "Exposure: " << to_string(vidGrabber.getExposure()) << std::endl;
+    ss << "Num circles: " << circles.size() << std::endl;
     
     ofDrawBitmapStringHighlight(ss.str(), ofPoint(10, 15));
 }

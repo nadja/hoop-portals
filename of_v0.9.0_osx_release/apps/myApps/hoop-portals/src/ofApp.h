@@ -57,8 +57,20 @@ public:
     ofxCvColorImage displayImage;
     ofxCvGrayscaleImage thresholdedIm;
     
-    ofxPanel gui;
-    ofParameter<int> thresh, exposure, channel, minRadius;
+    // guis
+    ofxPanel gui, gui2;
+    ofParameter<int> thresh, exposure, channel, minRadius, blurparam;
+    ofxIntSlider dp_param;
+    ofxIntSlider mindist_param;
+    ofxIntSlider param1_param;
+    ofxIntSlider param2_param;
+    ofxIntSlider minradius_param;
+    ofxIntSlider maxradius_param;
+    ofxIntSlider threshold_param;
+
+    ofxLabel numCircles;
+
+    
     
     bool doBackgroundSub = false;
     ofxCv::RunningBackground background;
@@ -75,7 +87,9 @@ public:
  //
 
 
-    
+    // hough stuff
+    cv::Mat cvMat;
+    vector<cv::Vec3f> circles;
 
 
     
