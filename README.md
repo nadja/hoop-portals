@@ -1,2 +1,4 @@
 # hoop-portals
-ir floodlights on reflective hoops; image capped by pseye; of + inspirit + ?? to process
+repo of my project using infrared floodlights on reflective hoops
+image capture uses pseye; 
+of + inspirit libraries for post-processing
